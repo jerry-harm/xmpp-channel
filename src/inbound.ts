@@ -130,6 +130,8 @@ export async function handleInboundMessage(
   });
 
   // Build the message context using finalizeInboundContext (same pattern as other channels)
+  // Note: Both MessageSid AND messageId are included for consistency with reaction tool parameter
+  const msgId = message.stanzaId || message.id || `xmpp-${Date.now()}`;
   const ctx = rt.channel.reply.finalizeInboundContext({
     Body: message.body,
     RawBody: message.body,
@@ -144,7 +146,8 @@ export async function handleInboundMessage(
     SenderId: senderIdentity,
     Provider: "xmpp",
     Surface: "xmpp",
-    MessageSid: message.stanzaId || message.id || `xmpp-${Date.now()}`,
+    MessageSid: msgId,
+    messageId: msgId, // Alias for consistency with reaction tool parameter
     OriginatingChannel: "xmpp" as const,
     OriginatingTo: `xmpp:${message.isGroup ? message.roomJid : senderBare}`,
     CommandAuthorized: commandAuthorized,

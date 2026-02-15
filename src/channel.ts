@@ -92,7 +92,7 @@ export const xmppPlugin = {
   // Agent prompts for AI guidance
   agentPrompt: {
     messageToolHints: () => [
-      "- XMPP reactions: ALWAYS include messageId when using action=react (e.g., messageId=abc-123). Without messageId, the reaction will fail.",
+      "- XMPP reactions: ALWAYS include messageId when using action=react (e.g., messageId=abc-123). Use the messageId from the inbound message context.",
     ],
   },
   
