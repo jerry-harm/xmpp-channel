@@ -426,13 +426,6 @@ async function deliverReply(
   // XEP-0461: reply element references the original message
   const replyChildren: ReturnType<typeof xml>[] = [xml("body", {}, textToSend)];
   
-  // Add XEP-0461 reply reference if we have the original message ID
-  if (originalMsgId) {
-    replyChildren.push(
-      xml("reply", { xmlns: "urn:xmpp:reply:0", to: originalSender, id: originalMsgId })
-    );
-  }
-  
   const reply = xml(
     "message",
     { to: replyTo, type: msgType, id: messageId },
